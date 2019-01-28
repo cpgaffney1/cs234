@@ -66,7 +66,6 @@ class NatureQN(Linear):
         vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=scope)
         print(vars)
         print()
-        exit()
         ##############################################################
         ######################## END YOUR CODE #######################
         return out

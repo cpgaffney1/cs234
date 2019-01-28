@@ -52,7 +52,7 @@ class Linear(DQN):
 
         height, width, channels = state_shape
         self.s = tf.placeholder(tf.uint8, 
-            shape=(None, 80, 80, 4), 
+            shape=(None, height, width, channels * self.config.state_history), 
             name="s")
         self.a = tf.placeholder(tf.int32, 
             shape=(None), 
@@ -112,7 +112,6 @@ class Linear(DQN):
         vars = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=scope)
         print(vars)
         print()
-        exit()
 
         ##############################################################
         ######################## END YOUR CODE #######################
