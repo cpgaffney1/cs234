@@ -1,0 +1,12 @@
+2019-02-16 16:31:26,049:INFO: Summary name Avg Reward is illegal; using Avg_Reward instead.
+2019-02-16 16:31:26,049:INFO: Summary name Max Reward is illegal; using Max_Reward instead.
+2019-02-16 16:31:26,065:INFO: Summary name Std Reward is illegal; using Std_Reward instead.
+2019-02-16 16:31:26,065:INFO: Summary name Eval Reward is illegal; using Eval_Reward instead.
+2019-02-16 16:32:07,140:INFO: Summary name Avg Reward is illegal; using Avg_Reward instead.
+2019-02-16 16:32:07,140:INFO: Summary name Max Reward is illegal; using Max_Reward instead.
+2019-02-16 16:32:07,140:INFO: Summary name Std Reward is illegal; using Std_Reward instead.
+2019-02-16 16:32:07,156:INFO: Summary name Eval Reward is illegal; using Eval_Reward instead.
+2019-02-16 17:03:26,759:INFO: Summary name Avg Reward is illegal; using Avg_Reward instead.
+2019-02-16 17:03:26,763:INFO: Summary name Max Reward is illegal; using Max_Reward instead.
+2019-02-16 17:03:26,765:INFO: Summary name Std Reward is illegal; using Std_Reward instead.
+2019-02-16 17:03:26,769:INFO: Summary name Eval Reward is illegal; using Eval_Reward instead.
