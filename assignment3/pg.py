@@ -200,8 +200,8 @@ class PG(object):
         output_activation=self.config.activation)
       std = tf.get_variable('std', shape=(self.action_dim,), dtype=tf.float32, initializer=tf.zeros_initializer(), trainable=True)
       log_std = tf.log(tf.exp(std) + 1.)
-      #self.log_std = tf.tile(log_std, [tf.shape(action_means)[0], 1])
-      self.sampled_action = action_means + log_std * tf.random_normal((self.action_dim,))
+      #log_std = tf.tile(log_std, [tf.shape(action_means)[0], 1])
+      self.sampled_action = action_means + tf.random_normal(tf.shape(action_means)) * log_std
       self.logprob = tf.contrib.distributions.MultivariateNormalDiag(action_means, log_std).log_prob(self.action_placeholder)
     #######################################################
     #########          END YOUR CODE.          ############
