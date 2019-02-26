@@ -188,7 +188,7 @@ class PG(object):
     if self.discrete:
       action_logits = build_mlp(self.observation_placeholder,
         self.action_dim, scope, self.config.n_layers, self.config.layer_size,
-        output_activation=self.config.activation)
+        output_activation=None)
       self.sampled_action = tf.multinomial(action_logits, 1)
       self.sampled_action = tf.reshape(self.sampled_action, [-1,])
       print(self.sampled_action)
@@ -197,12 +197,11 @@ class PG(object):
     else:
       action_means = build_mlp(self.observation_placeholder,
         self.action_dim, scope, self.config.n_layers, self.config.layer_size,
-        output_activation=self.config.activation)
-      std = tf.get_variable('std', shape=(self.action_dim,), dtype=tf.float32, initializer=tf.zeros_initializer(), trainable=True)
-      log_std = tf.log(tf.exp(std) + 1.)
-      #log_std = tf.tile(log_std, [tf.shape(action_means)[0], 1])
-      self.sampled_action = action_means + tf.random_normal(tf.shape(action_means)) * log_std
-      self.logprob = tf.contrib.distributions.MultivariateNormalDiag(action_means, log_std).log_prob(self.action_placeholder)
+        output_activation=None)
+      log_std = tf.get_variable('std', shape=(self.action_dim,), dtype=tf.float32, trainable=True)
+      std = exp(log_std)
+      self.sampled_action = action_means + tf.random_normal(tf.shape(action_means)) * std
+      self.logprob = tf.contrib.distributions.MultivariateNormalDiag(action_means, std).log_prob(self.action_placeholder)
     #######################################################
     #########          END YOUR CODE.          ############
 
