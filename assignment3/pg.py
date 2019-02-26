@@ -189,18 +189,20 @@ class PG(object):
       action_logits = build_mlp(self.observation_placeholder,
         self.action_dim, scope, self.config.n_layers, self.config.layer_size,
         output_activation=self.config.activation)
-      self.sampled_action = tf.squeeze(tf.multinomial(action_logits, 1))
+      self.sampled_action = tf.multinomial(action_logits, 1)
+      self.sampled_action = tf.reshape(self.sampled_action, [-1,])
+      print(self.sampled_action)
       self.logprob = - tf.nn.sparse_softmax_cross_entropy_with_logits(
         labels=self.action_placeholder, logits=action_logits)
     else:
       action_means = build_mlp(self.observation_placeholder,
         self.action_dim, scope, self.config.n_layers, self.config.layer_size,
         output_activation=self.config.activation)
-      self.std = tf.get_variable('std', shape=(1, self.action_dim), dtype=tf.float32)
-      self.log_std = tf.log(tf.exp(self.std) + 1.)
-      self.log_std = tf.tile(self.log_std, [tf.shape(self.action_means)[0], 1])
-      self.sampled_action = tf.random.normal((None, 1), action_means, self.log_std)
-      self.logprob = tf.contrib.distributions.MultivariateNormalDiag(self.action_means, self.log_std).prob(self.action_placeholder)
+      std = tf.get_variable('std', shape=(self.action_dim,), dtype=tf.float32, initializer=tf.zeros_initializer(), trainable=True)
+      log_std = tf.log(tf.exp(std) + 1.)
+      #self.log_std = tf.tile(log_std, [tf.shape(action_means)[0], 1])
+      self.sampled_action = action_means + log_std * tf.random_normal((self.action_dim,))
+      self.logprob = tf.contrib.distributions.MultivariateNormalDiag(action_means, log_std).log_prob(self.action_placeholder)
     #######################################################
     #########          END YOUR CODE.          ############
 
