@@ -463,7 +463,7 @@ class PG(object):
       T = len(rewards)
       returns = []
       for t in range(T):
-        returns_from_t = np.array([(gamma ** i) * rewards[i] for i in range(t, T)])
+        returns_from_t = np.array([(gamma ** i) * rewards[i] for i in range(t, T + 1)])
         returns.append(np.sum(returns_from_t))
       #######################################################
       #########          END YOUR CODE.          ############
